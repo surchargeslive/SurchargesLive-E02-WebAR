@@ -13,14 +13,56 @@
 <body>
 
 
-        <a-scene embedded arjs>
+        <a-scene embedded arjs >
                 <a-assets>
-                  <a-asset-item id="cityModel" src="./OfflineDinoWhole.stl.gltf"></a-asset-item>
+                  <a-asset-item id="dinoModel" src="./models/Dino.stl.gltf"></a-asset-item>
+                  <a-asset-item id="cactusModelA" src="./models/cactus_A.stl.gltf"></a-asset-item>
+                  <a-asset-item id="cactusModelB" src="./models/cactus_B.stl.gltf"></a-asset-item>
+                  <a-asset-item id="cactusModelC" src="./models/cactus_C.stl.gltf"></a-asset-item>
+                  <a-asset-item id="cactusModelD" src="./models/cactus_D.stl.gltf"></a-asset-item>
+                  <a-asset-item id="cactusModelE" src="./models/cactus_E.stl.gltf"></a-asset-item>
+                  <a-asset-item id="cactusModelF" src="./models/cactus_F.stl.gltf"></a-asset-item>
                 </a-assets>
                 <a-marker preset="hiro">
-
-                    <a-entity gltf-model="#cityModel" scale="0.01 0.01 0.01" position="-2 -5 0" rotation="-90 -120 30"></a-entity>
+                    <a-entity
+                      id="dino"
+                      gltf-model="#dinoModel"
+                      animation__startmove="property: position; to: 0 1 0; startEvents: startmove; dur: 500";
+                      animation__endmove="property: position; to: 0 0 0; startEvents: endmove; dur: 500; delay: 500";
+                      scale="0.01 0.01 0.01">
+                    </a-entity>
+                    <a-entity
+                      id="cactusA"
+                      gltf-model="#cactusModelA"
+                      animation__startmove="property: position; from: 1 0 0; to: -10 1 0; startEvents: startmove; dur: 5000; loop:true;";
+                      scale="0.01 0.01 0.01"></a-entity>
+                    <a-entity
+                      id="cactusB"
+                      gltf-model="#cactusModelB"
+                      animation__startmove="property: position; from: 2 0 0; to: -11 1 0; startEvents: startmove; dur: 5000; loop:true;";
+                      scale="0.01 0.01 0.01"></a-entity>
+                    <a-entity
+                      id="cactusC"
+                      gltf-model="#cactusModelC"
+                      animation__startmove="property: position; from: 3 0 0; to: -12 1 0; startEvents: startmove; dur: 5000; loop:true;";
+                      scale="0.01 0.01 0.01"></a-entity>
+                    <a-entity
+                      id="cactusD"
+                      gltf-model="#cactusModelD"
+                      animation__startmove="property: position; from: 4 0 0; to: -13 1 0; startEvents: startmove; dur: 5000; loop:true;";
+                      scale="0.01 0.01 0.01"></a-entity>
+                    <a-entity
+                      id="cactusE"
+                      gltf-model="#cactusModelE"
+                      animation__startmove="property: position; from: 5 0 0; to: -14 1 0; startEvents: startmove; dur: 5000; loop:true;";
+                      scale="0.01 0.01 0.01"></a-entity>
+                    <a-entity
+                      id="cactusF"
+                      gltf-model="#cactusModelF"
+                      animation__startmove="property: position; from: 6 0 0; to: -15 1 0; startEvents: startmove; dur: 5000; loop:true;";
+                      scale="0.01 0.01 0.01"></a-entity>
                 </a-marker>
+
                 <a-entity camera></a-entity>
               </a-scene>
 </body>

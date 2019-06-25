@@ -5,13 +5,6 @@
     const dino = dinoEl.object3D;
     const cactusArray = [...document.querySelectorAll('.cactus')];
 
-    cactusArray.forEach((cactusElt, idx) => {
-        cactusElt.object3D.rotation.set(THREE.Math.degToRad(180), 0, 0);
-        cactusElt.object3D.position.set(10, 0.5, -0.25);
-        cactusElt.setAttribute('scale', '0.01 0.01 0.01');
-    })
-    dino.rotation.set(THREE.Math.degToRad(180), 0, 0);
-
     let animationStart = false;
     let dead = false;
 
@@ -26,8 +19,31 @@
                 cactusElt.setAttribute('animation', 'property: position; from: 5 0.25 -0.25; to: -5 0.25 -0.25; dur: 6000; loop:true');
                 initCactusMove();
             }, 
-            2000 + (Math.random() * 500)
+            2000 + (Math.random() * 500),
         );
+    }
+
+    function initCollectionDetection() {
+        setInterval(
+            () => {
+                // The dino height is based on the dino object z position, but in negative
+                if ( -dino.position.z < 0.5) {
+                    // Collision potentielle
+                    cactusArray.forEach((cactus) => {
+                        if (Math.abs(cactus.object3D.position.x) < 0.5) {
+                            console.warn(`Collision!`); 
+                        }
+                    });
+                    
+                }
+                
+                /*
+                
+                */
+            
+            },
+            100,
+        )
     }
     
     document.body.addEventListener('click',_ => {
@@ -35,7 +51,9 @@
 
         if (!animationStart){            
             initCactusMove();
+            initCollectionDetection();
         }
+        animationStart = true;
     })
 })()
 

@@ -3,8 +3,6 @@
 (()=>{
     const dinoEl = document.querySelector('#dino');
     const dino = dinoEl.object3D;
-    const cactusArray = [...document.querySelectorAll('.cactus')];
-
     const cactusTemplates = [...document.querySelectorAll('.cactus_template')];
 
     let animationStart = false;
@@ -28,9 +26,27 @@
         // And we animate it
         cactus.setAttribute('animation', 'property: position; to: -5 0 0; dur: 10000; loop:0; easing: linear;');
         
+
+        // We activate the collision detection
+        let interval = setInterval(
+            () => {
+                // Potential collision
+                if (cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
+                    // If dino isn't at lest at a height of 1.0, we say there is a collision                    
+                    if (dino.position.z > -1.0) {
+                        console.warn('Collision');
+                    }                    
+                }
+            },
+            100,
+        );
+
         // At the end of the movement, we remove it
         setTimeout(
-            () => marker.removeChild(cactus),
+            () => { 
+                marker.removeChild(cactus);
+                clearInterval(interval);
+            },
             10000,
         )
     }
@@ -39,37 +55,12 @@
         initCactusMove();        
         setTimeout(initCacti, 2000 + (Math.random() * 2000));
     }
-
-
-    function initCollectionDetection() {
-        setInterval(
-            () => {
-                // The dino height is based on the dino object z position, but in negative
-                if ( -dino.position.z < 0.5) {
-                    // Collision potentielle
-                    cactusArray.forEach((cactus) => {
-                        if (Math.abs(cactus.object3D.position.x) < 0.5) {
-                            console.warn(`Collision!`); 
-                        }
-                    });
-                    
-                }
-                
-                /*
-                
-                */
-            
-            },
-            100,
-        )
-    }
     
     document.body.addEventListener('click',_ => {
         dinoEl.emit('startmove')
 
         if (!animationStart){            
-            initCacti();
-            // initCollectionDetection();
+            initCacti();            
         }
         animationStart = true;
     })

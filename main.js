@@ -6,32 +6,35 @@
     const cactusArray = [...document.querySelectorAll('.cactus')];
 
     cactusArray.forEach((cactusElt, idx) => {
-        cactusElt.object3D.rotation.set(-90, 0, 0);
-        cactusElt.object3D.position.set(1, 0, 0);
+        cactusElt.object3D.rotation.set(THREE.Math.degToRad(180), 0, 0);
+        cactusElt.object3D.position.set(10, 0.5, -0.25);
         cactusElt.setAttribute('scale', '0.01 0.01 0.01');
     })
-    dino.rotation.set(-90, 0, 0);
+    dino.rotation.set(THREE.Math.degToRad(180), 0, 0);
 
     let animationStart = false;
+    let dead = false;
 
-
+    function initCactusMove() {
+        setTimeout(
+            () => {
+                if (dead) {
+                    return;
+                }        
+                const index = Math.floor(Math.random() * cactusArray.length);
+                const cactusElt = cactusArray[index];
+                cactusElt.setAttribute('animation', 'property: position; from: 5 0.25 -0.25; to: -5 0.25 -0.25; dur: 6000; loop:true');
+                initCactusMove();
+            }, 
+            2000 + (Math.random() * 500)
+        );
+    }
+    
     document.body.addEventListener('click',_ => {
         dinoEl.emit('startmove')
 
-        if (!animationStart){
-            let arrayCactusTmp = [...cactusArray];
-            let compt = 0;
-            while(arrayCactusTmp.length){
-                const index = Math.floor(Math.random() * arrayCactusTmp.length);
-                const cactusElt = arrayCactusTmp[index];
-                arrayCactusTmp.splice(index, 1);
-                compt++;
-                setTimeout((cactusEltTmp)=>{
-                    cactusEltTmp.setAttribute('animation', 'property: position; from: 1 0 0; to: -10 1 0; dur: 6000; loop:true');
-                }, compt * 2000 + (Math.random() * 500), cactusElt)
-            }
-
-            animationStart = true;
+        if (!animationStart){            
+            initCactusMove();
         }
     })
 })()

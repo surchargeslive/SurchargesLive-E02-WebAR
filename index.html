@@ -26,6 +26,9 @@
           id="dino" gltf-model="#dinoModel"
           animation__startmove="property: position; from: 0 0 0; to: 0 0 -2; startEvents: startmove; dur: 1000; loop: 1; dir:alternate; easing: linear";
           rotation="-90 0 0"></a-entity>
+      <a-entity id="score" position="2 0 -2" rotation="-90 0 00"
+            text="color: red; value: Score: 0; wrapCount: 10; font: exo2bold;">
+      </a-entity>
     </a-marker>
 
     <a-entity camera></a-entity>
@@ -66,6 +69,11 @@
           class="cactus" gltf-model="#cactusModelF" 
           position="5 0 0"           
           rotation="-90 0 0"></a-entity>
+  </template>
+  <template id="gameover_template">
+      <a-text class="gameover" position="1 2 -0.5" rotation="-90 0 00"
+            color="red" value="Game over" wrap-count="30" font="exo2bold" >
+      </a-text>
   </template>
 </body>
 </html>

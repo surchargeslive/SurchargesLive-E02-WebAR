@@ -5,37 +5,73 @@
     const dino = dinoEl.object3D;
     const cactusArray = [...document.querySelectorAll('.cactus')];
 
-    cactusArray.forEach((cactusElt, idx) => {
-        cactusElt.object3D.rotation.set(THREE.Math.degToRad(180), 0, 0);
-        cactusElt.object3D.position.set(10, 0.5, -0.25);
-        cactusElt.setAttribute('scale', '0.01 0.01 0.01');
-    })
-    dino.rotation.set(THREE.Math.degToRad(180), 0, 0);
+    const cactusTemplates = [...document.querySelectorAll('.cactus_template')];
 
     let animationStart = false;
+    let totalCacti = 0;
     let dead = false;
 
     function initCactusMove() {
+        totalCacti++;
+        // Let's choose a cactus to place
+        const index = Math.floor(Math.random() * cactusTemplates.length);
+        const cactusFragment = document.importNode(cactusTemplates[index].content, true);
+
+        // Now we add it to marker
+        const marker = document.querySelector('#marker');
+        marker.appendChild(cactusFragment);
+
+        // We need to get the true node, not the documentFragment
+        const cactusArray = marker.querySelectorAll('.cactus');
+        const cactus = cactusArray[cactusArray.length -1];
+
+        // And we animate it
+        cactus.setAttribute('animation', 'property: position; to: -5 0 0; dur: 10000; loop:0; easing: linear;');
+        
+        // At the end of the movement, we remove it
         setTimeout(
+            () => marker.removeChild(cactus),
+            10000,
+        )
+    }
+
+    function initCacti() {
+        initCactusMove();        
+        setTimeout(initCacti, 2000 + (Math.random() * 2000));
+    }
+
+
+    function initCollectionDetection() {
+        setInterval(
             () => {
-                if (dead) {
-                    return;
-                }        
-                const index = Math.floor(Math.random() * cactusArray.length);
-                const cactusElt = cactusArray[index];
-                cactusElt.setAttribute('animation', 'property: position; from: 5 0.25 -0.25; to: -5 0.25 -0.25; dur: 6000; loop:true');
-                initCactusMove();
-            }, 
-            2000 + (Math.random() * 500)
-        );
+                // The dino height is based on the dino object z position, but in negative
+                if ( -dino.position.z < 0.5) {
+                    // Collision potentielle
+                    cactusArray.forEach((cactus) => {
+                        if (Math.abs(cactus.object3D.position.x) < 0.5) {
+                            console.warn(`Collision!`); 
+                        }
+                    });
+                    
+                }
+                
+                /*
+                
+                */
+            
+            },
+            100,
+        )
     }
     
     document.body.addEventListener('click',_ => {
         dinoEl.emit('startmove')
 
         if (!animationStart){            
-            initCactusMove();
+            initCacti();
+            // initCollectionDetection();
         }
+        animationStart = true;
     })
 })()
 

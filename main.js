@@ -13,27 +13,28 @@
     dino.rotation.set(THREE.Math.degToRad(180), 0, 0);
 
     let animationStart = false;
+    let dead = false;
 
-
+    function initCactusMove() {
+        setTimeout(
+            () => {
+                if (dead) {
+                    return;
+                }        
+                const index = Math.floor(Math.random() * cactusArray.length);
+                const cactusElt = cactusArray[index];
+                cactusElt.setAttribute('animation', 'property: position; from: 5 0.25 -0.25; to: -5 0.25 -0.25; dur: 6000; loop:true');
+                initCactusMove();
+            }, 
+            2000 + (Math.random() * 500)
+        );
+    }
+    
     document.body.addEventListener('click',_ => {
         dinoEl.emit('startmove')
 
-        if (!animationStart){
-            let arrayCactusTmp = [...cactusArray];
-            let compt = 0;
-            while(arrayCactusTmp.length){
-                const index = Math.floor(Math.random() * arrayCactusTmp.length);
-                const cactusElt = arrayCactusTmp[index];
-                arrayCactusTmp.splice(index, 1);
-                compt++;
-                setTimeout((cactusEltTmp)=>{                    
-
-                    cactusEltTmp.setAttribute('animation', 'property: position; from: 5 0.25 -0.25; to: -5 0.25 -0.25; dur: 6000; loop:true');
-                    console.log(cactusEltTmp.object3D.position);
-                }, compt * 2000 + (Math.random() * 500), cactusElt)
-            }
-
-            animationStart = true;
+        if (!animationStart){            
+            initCactusMove();
         }
     })
 })()

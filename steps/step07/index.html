@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Surchaged Live WebAR</title>
+    <script src="/node_modules/aframe/dist/aframe-v0.9.2.js"></script>
+    <script src="/node_modules/ar.js/aframe/build/aframe-ar.js"></script>
+    <script type="module" src="./main.js"></script> 
+</head>
+<body>
+  <a-scene embedded 
+      arjs="debugUIEnabled: false; cameraParametersUrl: /node_modules/ar.js/data/data/camera_para.dat;" >
+    <a-assets>
+      <a-asset-item id="dinoModel" src="/models/Dino.gltf"></a-asset-item>
+      <a-asset-item id="cactusModelA" src="/models/cactus_A.gltf"></a-asset-item>
+      <a-asset-item id="cactusModelB" src="/models/cactus_B.gltf"></a-asset-item>
+      <a-asset-item id="cactusModelC" src="/models/cactus_C.gltf"></a-asset-item>
+      <a-asset-item id="cactusModelD" src="/models/cactus_D.gltf"></a-asset-item>
+      <a-asset-item id="cactusModelE" src="/models/cactus_E.gltf"></a-asset-item>
+      <a-asset-item id="cactusModelF" src="/models/cactus_F.gltf"></a-asset-item>
+    </a-assets>
+    <a-marker id="marker" preset="custom" type="pattern" url="/assets/pattern-offline.patt">
+      <a-entity
+          id="dino" gltf-model="#dinoModel"
+          animation__startmove="property: position; from: 0 0 0; to: 0 0 -2; startEvents: startmove; dur: 1000; loop: 1; dir:alternate; easing: linear";
+          rotation="-90 0 0"></a-entity>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <template class="cactus_template">
+      <a-entity
+          class="cactus" gltf-model="#cactusModelA" 
+          position="5 0 0"           
+          rotation="-90 0 0"></a-entity>
+  </template>
+  <template class="cactus_template">
+      <a-entity
+          class="cactus" gltf-model="#cactusModelB" 
+          position="5 0 0"           
+          rotation="-90 0 0"></a-entity>
+  </template>  
+  <template class="cactus_template">
+      <a-entity
+          class="cactus" gltf-model="#cactusModelC" 
+          position="5 0 0"           
+          rotation="-90 0 0"></a-entity>
+  </template>
+  <template class="cactus_template">
+      <a-entity
+          class="cactus" gltf-model="#cactusModelD" 
+          position="5 0 0"           
+          rotation="-90 0 0"></a-entity>
+  </template>
+  <template class="cactus_template">
+      <a-entity
+          class="cactus" gltf-model="#cactusModelE" 
+          position="5 0 0"           
+          rotation="-90 0 0"></a-entity>
+  </template>
+  <template class="cactus_template">
+      <a-entity
+          class="cactus" gltf-model="#cactusModelF" 
+          position="5 0 0"           
+          rotation="-90 0 0"></a-entity>
+  </template>
+</body>
+</html>

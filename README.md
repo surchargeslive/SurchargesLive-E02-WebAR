@@ -258,10 +258,11 @@ Change in main.js
 let interval = setInterval(
     () => {
         // Potential collision
-        if (cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
+        if (!dead && cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
             // If dino isn't at lest at a height of 1.0, we say there is a collision                    
             if (dino.position.z > -1.0) {
                 console.warn('Collision');
+                dead = true;
             }                    
         }
     },
@@ -276,6 +277,13 @@ setTimeout(
     },
     10000,
 )
+
+function initCacti() {
+    initCactusMove();        
+    if (!dead) {
+        setTimeout(initCacti, 2000 + (Math.random() * 2000));
+    }
+}
 ```
 
 ## Step 07 
@@ -291,3 +299,37 @@ Change in index.html
 ## Step 08
 
 We will display the score
+
+Change in index.html
+
+```html
+<!-- Add the score -->
+<a-entity id="score" position="2 0 -2" rotation="-90 0 00"
+    text="color: red; value: Score: 0; wrapCount: 10; font: exo2bold;">
+</a-entity>
+
+<!-- Add a new template --> 
+<template id="gameover_template">
+    <a-text class="gameover" position="1 2 -0.5" rotation="-90 0 00"
+        color="red" value="Game over" wrap-count="30" font="exo2bold" >
+    </a-text>
+</template>
+```
+
+Change in main.js
+
+```javascript
+
+//In initCatucsMove
+const score = document.querySelector('#score');
+const thisCactus = totalCacti;
+
+// In Interval of initCactusMove
+marker.appendChild(document.importNode(document.querySelector('#gameover_template').content, true));
+console.dir(marker.querySelector('.gameover').getAttribute("width"));
+
+// In SetTimeout of initCactusMove
+if (!dead) {
+    score.setAttribute('text', `color: red; value: Score: ${thisCactus}; wrapCount: 10; font: exo2bold;`)
+}
+```

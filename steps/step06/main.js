@@ -31,10 +31,11 @@
         let interval = setInterval(
             () => {
                 // Potential collision
-                if (cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
+                if (!dead && cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
                     // If dino isn't at lest at a height of 1.0, we say there is a collision                    
                     if (dino.position.z > -1.0) {
                         console.warn('Collision');
+                        dead = true;
                     }                    
                 }
             },
@@ -52,8 +53,10 @@
     }
 
     function initCacti() {
-        initCactusMove();        
-        setTimeout(initCacti, 2000 + (Math.random() * 2000));
+        initCactusMove();      
+        if (!dead) {  
+            setTimeout(initCacti, 2000 + (Math.random() * 2000));
+        }
     }
     
     document.body.addEventListener('click',_ => {

@@ -11,7 +11,7 @@ Project to show Web AR game of Offline Dinosaur using AR.js and AFrame
 
 `npx serve``
 
-goto http://localhost:5000 and show the marker available in `/assets/pattern-offline.pdf
+goto http://localhost:5000/steps/stepFinal/ and show the marker available in `/assets/pattern-offline.pdf
 
 # Steps
 
@@ -30,9 +30,7 @@ Just integrate Aframe and AR.JS
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SurchargeWebAR</title>
 
-    <script src="/node_modules/ar.js/aframe/build/aframe-ar.min.js"></script>
     <script src="/node_modules/aframe/dist/aframe-v0.9.2.min.js"></script>
-    <script src="./main.js"></script>
 </head>
 <body>
     <a-scene>
@@ -48,6 +46,11 @@ Start playing with AR.js using it with hiro marker to show the box
 
 Code to change in index.html
 ```html
+
+<!-- In Header -->
+<script src="/node_modules/ar.js/aframe/build/aframe-ar.js"></script>
+
+<!-- In Body -->
 <a-scene embedded arjs>
     <a-marker preset="hiro"
     arjs="debugUIEnabled: false; cameraParametersUrl: /node_modules/ar.js/data/data/camera_para.dat;" >

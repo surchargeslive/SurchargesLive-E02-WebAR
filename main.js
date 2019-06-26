@@ -11,6 +11,9 @@
 
     function initCactusMove() {
         totalCacti++;
+        const score = document.querySelector('#score');
+        const thisCactus = totalCacti;
+
         // Let's choose a cactus to place
         const index = Math.floor(Math.random() * cactusTemplates.length);
         const cactusFragment = document.importNode(cactusTemplates[index].content, true);
@@ -24,17 +27,20 @@
         const cactus = cactusArray[cactusArray.length -1];
 
         // And we animate it
-        cactus.setAttribute('animation', 'property: position; to: -5 0 0; dur: 10000; loop:0; easing: linear;');
+        cactus.setAttribute('animation', 'property: position; to: -2 0 0; dur: 8000; loop:0; easing: linear;');
         
 
         // We activate the collision detection
         let interval = setInterval(
             () => {
                 // Potential collision
-                if (cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
+                if (!dead && cactus.object3D.position.x < 0.25 && cactus.object3D.position.x > -0.25) {
                     // If dino isn't at lest at a height of 1.0, we say there is a collision                    
                     if (dino.position.z > -1.0) {
                         console.warn('Collision');
+                        dead = true;
+                        marker.appendChild(document.importNode(document.querySelector('#gameover_template').content, true));
+                        console.dir(marker.querySelector('.gameover').getAttribute("width"));
                     }                    
                 }
             },
@@ -44,16 +50,22 @@
         // At the end of the movement, we remove it
         setTimeout(
             () => { 
+                if (!dead) {
+                    score.setAttribute('text', `color: red; value: Score: ${thisCactus}; wrapCount: 10; font: exo2bold;`)
+                }                
                 marker.removeChild(cactus);
                 clearInterval(interval);
             },
-            10000,
+            8000,
         )
     }
 
     function initCacti() {
         initCactusMove();        
-        setTimeout(initCacti, 2000 + (Math.random() * 2000));
+        if (!dead) {
+            setTimeout(initCacti, 2000 + (Math.random() * 2000));
+        }
+        
     }
     
     document.body.addEventListener('click',_ => {

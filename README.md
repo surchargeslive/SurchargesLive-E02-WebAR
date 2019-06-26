@@ -51,9 +51,9 @@ Code to change in index.html
 <script src="/node_modules/ar.js/aframe/build/aframe-ar.js"></script>
 
 <!-- In Body -->
-<a-scene embedded arjs>
-    <a-marker preset="hiro"
+<a-scene embedded 
     arjs="debugUIEnabled: false; cameraParametersUrl: /node_modules/ar.js/data/data/camera_para.dat;" >
+    <a-marker preset="hiro">
         <a-box id="boxModel" position="0 0 0" rotation="0 45 0" color="#4CC3D9"></a-box>
     </a-marker>
 
@@ -162,6 +162,9 @@ Change in index.html
 <a-asset-item id="cactusModelE" src="/models/cactus_E.gltf"></a-asset-item>
 <a-asset-item id="cactusModelF" src="/models/cactus_F.gltf"></a-asset-item>
 
+<!-- Add Id to marker element --> 
+<a-marker id="marker" preset="hiro">
+
 <!-- We refactor and use templates to more clean -->
 <template class="cactus_template">
     <a-entity
@@ -204,6 +207,7 @@ Change in index.html
 Change in main.js
 
 ```javascript
+
 
 // Remove previous cactus code to use this one
 const cactusTemplates = [...document.querySelectorAll('.cactus_template')];
@@ -257,6 +261,9 @@ Add Collision Detection
 Change in main.js
 
 ```javascript
+// init dead variable
+let dead = false;
+
 // We activate the collision detection
 let interval = setInterval(
     () => {

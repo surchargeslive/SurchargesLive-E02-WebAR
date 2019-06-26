@@ -10,12 +10,13 @@
     <script src="/node_modules/ar.js/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs>
+    <a-scene embedded 
+
+    arjs="debugUIEnabled: false; cameraParametersUrl: /node_modules/ar.js/data/data/camera_para.dat;" >
         <a-assets>
             <a-asset-item id="dinoModel" src="/models/Dino.gltf"></a-asset-item>
         </a-assets>
-        <a-marker preset="hiro"
-        arjs="debugUIEnabled: false; cameraParametersUrl: /node_modules/ar.js/data/data/camera_para.dat;" >
+        <a-marker preset="hiro">
             <a-entity
                 id="dino" gltf-model="#dinoModel"
                 rotation="-90 0 0"></a-entity>

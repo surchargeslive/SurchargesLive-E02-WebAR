@@ -11,9 +11,9 @@ Project to show Web AR game of Offline Dinosaur using AR.js and AFrame
 
 # Run
 
-`npx serve``
+`npx serve`
 
-goto http://localhost:5000/steps/stepFinal/ and show the marker available in `/assets/pattern-offline.pdf
+goto http://localhost:5000/steps/stepFinal/ and show the marker available in `/assets/pattern-offline.pdf`
 
 # Steps
 

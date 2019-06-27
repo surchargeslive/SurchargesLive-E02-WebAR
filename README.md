@@ -3,6 +3,8 @@
 
 Project to show Web AR game of Offline Dinosaur using AR.js and AFrame
 
+![Dinomarker](./assets/pattern-offline.png)
+
 # Install
 
 `npm install`

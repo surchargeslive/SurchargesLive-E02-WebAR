@@ -5,6 +5,8 @@ Project to show Web AR game of Offline Dinosaur using AR.js and AFrame
 
 ![Dinomarker](./assets/pattern-offline.png)
 
+Demo available here : [DinoWebAR](https://surchargeslive.github.io/SurchargesLive-E02-WebAR/) (use the previous marker)
+
 # Install
 
 `npm install`

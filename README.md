@@ -13,9 +13,9 @@ Demo available here : [DinoWebAR](https://surchargeslive.github.io/SurchargesLiv
 
 # Run
 
-`npx serve``
+`npx serve`
 
-goto http://localhost:5000/steps/stepFinal/ and show the marker available in `/assets/pattern-offline.pdf
+goto http://localhost:5000/steps/stepFinal/ and show the marker available in `/assets/pattern-offline.pdf`
 
 # Steps
 
